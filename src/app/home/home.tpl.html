@@ -1,0 +1,47 @@
+<div layout="column" layout-gt-sm="row" layout-fill>
+  <md-content flex="100" flex-gt-sm="60" class="md-padding">
+    <md-card md-theme-watch>
+      <md-card-title>
+        <md-card-title-text>
+          <div layout-align="center center" layout-gt-xs="row">
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Item</label>
+              <input ng-model="vm.item">
+            </md-input-container>
+            <md-button class="md-raised" ng-disabled="!vm.item" ng-click="vm.addItem()">
+            	Add
+            </md-button>
+          </div>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <md-list ng-cloak>
+          <md-list-item ng-repeat-start="(key, value) in vm.myList.current.items">
+            <p> {{ key }} </p>
+            <md-button class="md-fab md-mini md-primary" aria-label="Remove item">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </md-button>
+          </md-list-item>
+          <md-divider ng-repeat-end ng-if="!$last"></md-divider>
+      </md-card-content>
+    </md-card>
+  </md-content>
+  <md-content flex="100" flex-gt-sm="40" class="md-padding">
+    <md-list ng-cloak>
+      <md-subheader class="md-no-sticky">Current List</md-subheader>
+      <md-list-item>
+        <p> {{ vm.myList.current.date }} </p>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-subheader class="md-no-sticky">Pendding List</md-subheader>
+      <md-list-item ng-repeat="list in vm.myList.pendding">
+        <p> {{ list.date }} </p>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-subheader class="md-no-sticky">Previous List</md-subheader>
+      <md-list-item ng-repeat="list in vm.myList.previous">
+        <p> {{ list.date }} </p>
+      </md-list-item>
+    </md-list>
+  </md-content>
+</div>

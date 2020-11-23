@@ -1,0 +1,60 @@
+<div layout-gt-sm="row" layout="column" layout-fill>
+  <md-content flex="100" flex-gt-sm="50" flex-offset-gt-sm="25">
+    <md-card md-theme-watch>
+      <md-card-title ng-click="vm.t1 = !vm.t1">
+        Customer Details
+      </md-card-title>
+      <md-card-content ng-if="vm.t1">
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Mobile Number</label>
+            <input ng-model="vm.newList.customer.mobile">
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Name</label>
+            <input ng-model="vm.newList.customer.name">
+          </md-input-container>
+        </div>
+        <md-input-container class="md-block">
+          <label>Address</label>
+          <input ng-model="vm.newList.customer.address">
+        </md-input-container>
+        <md-card-actions layout="row" layout-align="end center" ng-if="vm.newList">
+          <md-button ng-click="vm.nextClick()">Next</md-button>
+        </md-card-actions>
+      </md-card-content>
+    </md-card>
+    <md-card md-theme-watch>
+      <md-card-title ng-click="vm.t2 = !vm.t2">
+        New Order
+      </md-card-title>
+      <md-card-content ng-if="vm.t2">
+        <div layout-align="center center" layout-gt-xs="row">
+          <md-input-container class="md-block" flex-gt-xs>
+            <label>Item</label>
+            <input ng-model="vm.item">
+          </md-input-container>
+          <md-button class="md-primary" ng-disabled="!vm.item" ng-click="vm.addItem()">
+            Add
+          </md-button>
+        </div>
+        <md-list ng-cloak>
+          <md-list-item ng-repeat-start="item in vm.newList.items">
+            <p> {{ item.des }} </p>
+            <md-button class="md-fab md-mini md-primary" aria-label="Remove item" ng-click="vm.newList.items.splice($index,1);">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </md-button>
+          </md-list-item>
+          <md-divider ng-repeat-end ng-if="!$last"></md-divider>
+          <md-card-actions layout="row" layout-align="end center" ng-if="vm.newList.items.length > 0" ng-click="vm.addOrder()">
+            <md-button>Submit</md-button>
+          </md-card-actions>
+      </md-card-content>
+    </md-card>
+  </md-content>
+  <md-content flex="100" flex-gt-sm="25">
+    <md-button class="md-raised md-primary" ui-sref="main.vendor">
+      Back To Home
+    </md-button>
+  </md-content>
+</div>

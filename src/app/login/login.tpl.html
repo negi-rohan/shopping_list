@@ -1,0 +1,26 @@
+<div layout="row" layout-fill>
+  <md-content flex="100" flex-gt-sm="40" flex-offset-gt-sm="30" style="margin-top:20vh;">
+  	<md-card md-theme-watch>
+        <md-card-title>
+          <md-card-title-text layout-align="center center">
+            <span class="md-headline">My Shopping List</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+        	<form name="projectForm">
+        		<md-input-container class="md-block">
+        			<label>User Name</label>
+        			<input ng-model="vm.user.userName">
+        		</md-input-container>
+        		<md-input-container class="md-block">
+        			<label>Password</label>
+        			<input ng-model="vm.user.password" type="password">
+        		</md-input-container>
+        		<md-button class="md-raised md-primary" style="width:100%;margin:auto;" ng-click="vm.login();">
+        			Login
+        		</md-button>
+        	</form>
+        </md-card-content>
+      </md-card>
+  </md-content>
+</div>
