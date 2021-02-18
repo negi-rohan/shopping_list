@@ -10,33 +10,32 @@
       bindToController: true
     });
 
-  function loginController($state) {
+  function loginController($state, $mdToast, loginService) {
     var vm = this;
 
     vm.user = {
-      userName: '',
-      password: ''
+      username: '',
+      pwd: ''
     };
 
     vm.login = login;
 
     function login() {
-      if (vm.user.userName === 'customer' && vm.user.password === 'customer') {
-        sessionStorage.userType = 'customer';
-        $state.go('main.home', '', { location: 'replace' });
-      } else {
-        sessionStorage.userType = 'vendor';
-        $state.go('main.vendor', '', { location: 'replace' });
+      if (vm.user && vm.user.username && vm.user.pwd) {
+        loginService.login(vm.user).then(
+          function(res) {
+            if (res && res && res.rows && res.rows.id) {
+              $state.go('main.vendor', '', { location: 'replace' });
+            } else {
+              $mdToast.show(
+                $mdToast.simple()
+                .position('top right')
+                .textContent('Please provide valid login name / email-id and password')
+                .hideDelay(3000));
+            }
+          }
+        );
       }
-      // if (vm.loginDetails && vm.loginDetails.un && vm.loginDetails.pwd) {
-      //   loginService.login(vm.loginDetails).then(
-      //     function(res) {
-      //       if (res && res.data && res.data.id) {
-      //         $state.go('main.dashboard', '', { location: 'replace' });
-      //       }
-      //     }
-      //   );
-      // }
     }
   }
 })();

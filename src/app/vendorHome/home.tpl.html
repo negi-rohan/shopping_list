@@ -7,11 +7,11 @@
         <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
             <label>Mobile Number</label>
-            <input ng-model="vm.newList.customer.mobile">
+            <input ng-model="vm.newList.custMobile">
           </md-input-container>
           <md-input-container class="md-block" flex-gt-sm>
             <label>Name</label>
-            <input ng-model="vm.newList.customer.name">
+            <input ng-model="vm.newList.custName">
           </md-input-container>
         </div>
         <md-input-container class="md-block">
@@ -28,14 +28,14 @@
           </md-button>
         </div>
         <md-list ng-cloak>
-          <md-list-item ng-repeat-start="item in vm.newList.items">
+          <md-list-item ng-repeat-start="item in vm.newList.orderItems">
             <p> {{ item.des }} </p>
-            <md-button class="md-fab md-mini md-primary" aria-label="Remove item" ng-click="vm.newList.items.splice($index,1);">
+            <md-button class="md-fab md-mini md-primary" aria-label="Remove item" ng-click="vm.newList.orderItems.splice($index,1);">
               <i class="fa fa-trash-o" aria-hidden="true"></i>
             </md-button>
           </md-list-item>
           <md-divider ng-repeat-end ng-if="!$last"></md-divider>
-          <md-card-actions layout="row" layout-align="end center" ng-if="vm.newList.items.length > 0" ng-click="vm.addOrder()">
+          <md-card-actions layout="row" layout-align="end center" ng-if="vm.newList.orderItems.length > 0" ng-click="vm.addOrder()">
             <md-button>Submit</md-button>
           </md-card-actions>
       </md-card-content>
@@ -47,30 +47,30 @@
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline">
-            {{vm.currentList.customer.name}}({{vm.currentList.customer.address}})
+            {{vm.currentList.custName}}({{vm.currentList.address}})
           </span>
           <span class="md-subhead">
-            {{vm.currentList.date | date:'mediumDate'}}
+            {{vm.currentList.orderDate | date:'mediumDate'}}
           </span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
         <p ng-if="vm.currentList === null">No Pennding Orders</p>
-        <md-list ng-cloak ng-if="vm.currentList != null && vm.currentList.status === 'pendding'">
-          <md-list-item ng-repeat="item in vm.currentList.items">
-            <p> {{ item.des }} </p>
-            <md-checkbox class="md-secondary" ng-model="item.status" ng-click="vm.toggleItem($index)"></md-checkbox>
+        <md-list ng-cloak ng-if="vm.currentList != null && vm.currentList.status === 0">
+          <md-list-item ng-repeat="item in vm.currentList.orderItems">
+            <p> {{ item.des || item.a }} </p>
+            <md-checkbox class="md-secondary" ng-model="item.status"></md-checkbox>
             <md-divider ng-if="!$last"></md-divider>
           </md-list-item>
         </md-list>
         <div layout="row" layout-align="end center">
-          <md-button ng-if="vm.currentList != null && vm.currentList.status === 'pendding'" class="md-raised md-primary" ng-click="vm.outForDelivery()">
+          <md-button ng-if="vm.currentList != null && vm.currentList.status === 0" class="md-raised md-primary" ng-click="vm.outForDelivery()">
             Send For Delivery
           </md-button>
         </div>
-        <md-list ng-cloak ng-if="vm.currentList != null && vm.currentList.status === 'outForDelivery'">
-          <md-list-item ng-repeat-start="item in vm.currentList.items">
-            <p> {{ item.des }} </p>
+        <md-list ng-cloak ng-if="vm.currentList != null && vm.currentList.status === 2">
+          <md-list-item ng-repeat-start="item in vm.currentList.orderItems">
+            <p> {{ item.des || item.a }} </p>
             <md-checkbox class="md-secondary" ng-model="item.status" disabled></md-checkbox>
           </md-list-item>
           <md-divider ng-repeat-end ng-if="!$last"></md-divider>
@@ -88,16 +88,16 @@
       <md-subheader class="md-no-sticky">Pendding Orders ({{vm.myOrders.pendding.length}})</md-subheader>
       <md-list-item class="md-3-line" ng-repeat="list in vm.myOrders.pendding" ng-click="vm.selectOrder($index, 'pendding')">
         <div class="md-list-item-text" layout="column">
-          <h3> {{ list.customer.name }} - {{ list.date | date:'mediumDate' }} </h3>
-          <p> {{ list.customer.address }} </p>
+          <h3> {{ list.custName }} - {{ list.orderDate | date:'mediumDate' }} </h3>
+          <p> {{ list.address }} </p>
         </div>
       </md-list-item>
       <md-divider></md-divider>
       <md-subheader class="md-no-sticky">Out For delivery ({{vm.myOrders.outForDelivery.length}})</md-subheader>
       <md-list-item class="md-3-line" ng-repeat="list in vm.myOrders.outForDelivery" ng-click="vm.selectOrder($index, 'outForDelivery')">
         <div class="md-list-item-text" layout="column">
-          <h3> {{ list.customer.name }} - {{ list.date | date:'mediumDate' }} </h3>
-          <p> {{ list.customer.address }} </p>
+          <h3> {{ list.custName }} - {{ list.orderDate | date:'mediumDate' }} </h3>
+          <p> {{ list.address }} </p>
         </div>
       </md-list-item>
     </md-list>
