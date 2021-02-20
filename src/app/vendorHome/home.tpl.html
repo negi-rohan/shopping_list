@@ -60,7 +60,7 @@
         <md-list ng-cloak ng-if="vm.currentList != null && vm.currentList.status === 0">
           <md-list-item ng-repeat="item in vm.currentList.orderItems">
             <p> {{ item.des || item.a }} </p>
-            <md-checkbox class="md-secondary" ng-model="item.status" ng-change="vm.toggleItem();"></md-checkbox>
+            <md-checkbox class="md-secondary" ng-model="item.status" ng-click="vm.toggleItem();"></md-checkbox>
             <md-divider ng-if="!$last"></md-divider>
           </md-list-item>
         </md-list>
