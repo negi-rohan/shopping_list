@@ -52,8 +52,7 @@
     }
 
     function toggleItem(index) {
-      vm.myOrders.pendding[selectedIndex].orderItems[index].status = !vm.myOrders.pendding[selectedIndex].orderItems[index].status;
-      console.log(vm.myOrders);
+      vm.myOrders.pendding[selectedIndex].packedCount = _.size(_.filter(vm.myOrders.pendding[selectedIndex].orderItems, 'status'));
     }
 
     function selectOrder(index, status) {
@@ -86,6 +85,7 @@
       vendorService.addOrder(vm.newList).then(
         function(res) {
           alert('order placed');
+          active();
         }
       );
       vm.newList = {
