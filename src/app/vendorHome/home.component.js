@@ -52,7 +52,9 @@
     }
 
     function toggleItem(index) {
+      // vm.myOrders.pendding[selectedIndex].orderItems[index].status = !vm.myOrders.pendding[selectedIndex].orderItems[index].status;
       vm.myOrders.pendding[selectedIndex].packedCount = _.size(_.filter(vm.myOrders.pendding[selectedIndex].orderItems, 'status'));
+      console.log(vm.myOrders);
     }
 
     function selectOrder(index, status) {
